@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="kMail Build" basedir="." default="package">
+
+    <property environment="env"/>
+
+    <property name="source.dir"                     value="${env.SOURCE_DIR}" />
+    <property name="source.dir.webapp"              value="${source.dir}/webapp" />
+    <property name="source.dir.src"                 value="${source.dir}/src"/>
+
+    <property name="target.dir"                     value="${env.TARGET_DIR}" />
+    <property name="war.file.name"                  value="kMail.war"/>
+
+    <property name="servlet.dir"                     value="${env.CATALINA_HOME}" />
+
+
+     <target name="clean">
+        <delete failonerror="false" dir="${target.dir}/kMail" />
+        <delete failonerror="false" file="${target.dir}/kMail.war" />
+    </target>
+
+
+    <target name="init">
+
+        <delete failonerror="false" dir="${target.dir}/kMail" />
+        <delete failonerror="false" file="${target.dir}/kMail.war" />
+
+        <mkdir dir="${target.dir}"/>
+        <mkdir dir="${target.dir}/kMail"/>
+
+        <!-- copy cvs webapps directory -->
+        <copy preservelastmodified="true" todir="${target.dir}/kMail">
+            <fileset dir="${source.dir.webapp}">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <mkdir dir="${target.dir}/kMail/WEB-INF/classes"/>
+
+    </target>
+
+    <target name="compile" depends="init">
+
+        <!-- set classpath for compiling the java classes -->
+        <path id="build.classpath">
+            <fileset dir="${target.dir}/kMail/WEB-INF/lib">
+                <include name="*.jar" />
+            </fileset>
+            <fileset dir="${source.dir}/thirdparty">
+                <include name="*.jar" />
+            </fileset>
+           <fileset dir="${servlet.dir}/lib">
+                <include name="servlet-api.jar" />
+            </fileset>
+        </path>
+
+        <javac debug="on" includeAntRuntime="false" nowarn="true"
+               srcdir="${source.dir.src}" destdir="${target.dir}/kMail/WEB-INF/classes"
+               includes="org/workcast/kmail/*.java">
+            <classpath refid="build.classpath" />
+        </javac>
+
+    </target>
+
+    <target name="package" depends="init, compile">
+        <war destfile="${target.dir}/kMail.war" needxmlfile="false" basedir="${target.dir}/kMail"/>
+    </target>
+
+</project>
+
+
+

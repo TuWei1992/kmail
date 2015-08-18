@@ -1,0 +1,14 @@
+
+body {
+    background-color:#EEEEFF;
+    width:800;
+}
+div.emailbox {
+    border-style:solid;
+    border-color:lightgray;
+    background-color:white;
+    padding:4px;
+}
+td {
+    vertical-align: top;
+}

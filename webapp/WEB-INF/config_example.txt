@@ -1,0 +1,16 @@
+#Configuration for KMail Server
+
+# Data Folder
+# Email messages are stored as files in this folder.  One file per message.
+dataFolder=c:/KMailData/
+
+
+# Host NAme
+# often the IP address of the server, used to access the server
+hostName=127.0.0.1
+
+
+# Host Port
+# The port to listn for SMTP requests
+hostPort=2525
+
