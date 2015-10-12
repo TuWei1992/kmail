@@ -46,9 +46,6 @@
             <fileset dir="${target.dir}/kMail/WEB-INF/lib">
                 <include name="*.jar" />
             </fileset>
-            <fileset dir="${source.dir}/thirdparty">
-                <include name="*.jar" />
-            </fileset>
            <fileset dir="${servlet.dir}/lib">
                 <include name="servlet-api.jar" />
             </fileset>
@@ -56,6 +53,7 @@
 
         <javac debug="on" includeAntRuntime="false" nowarn="true"
                srcdir="${source.dir.src}" destdir="${target.dir}/kMail/WEB-INF/classes"
+               target="1.6" source="1.6"
                includes="org/workcast/kmail/*.java">
             <classpath refid="build.classpath" />
         </javac>
